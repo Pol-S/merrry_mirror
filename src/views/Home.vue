@@ -125,8 +125,8 @@
         <button v-on:click="updateCharacter(character)">Update Character</button>
       </form>
     </div>
-        
-  
+    <!-- Delete Character -->
+    <button v-on:click="destroyCharacter(character)">Delete Character?</button>
       <br>
       <br>
     </div>
@@ -195,6 +195,13 @@ export default {
       };
       axios.patch("/api/characters/" + character.id, params).then(response => {
         this.currentCharacter = {};
+      });
+    },
+
+    destroyCharacter: function(character) {
+      axios.delete("/api/characters/" + character.id).then(response => {
+        var index = this.characters.indexOf(character);
+        this.characters.splice(index, 1);
       });
     },
   },
