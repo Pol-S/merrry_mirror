@@ -53,10 +53,18 @@
         </form>
       </article>
     </div>
+
     <!-- Index Action -->
-    <article class="container box style3">
-    <h1>All characters</h1>
+    <br>
+    <br>
+    <section id="banner">
+      <header>
+        <h1>All characters</h1>  
+      </header>
+    </section>
+
     <div v-for="character in characters">
+      <article class="container box style3">
       <h2>Name: {{ character.name }}</h2>
       <h3>Class: {{ character.character_class}}</h3>
       <h3>Level: {{ character.level }}</h3>
@@ -74,66 +82,68 @@
         <p>How good at control? {{character.cc_score}} out of 5.</p>
         <p>How good at general utility? {{character.utility_score}} out of 5.</p>
         <p>How good at social magic? {{character.face_score}} out of 5.</p>
+              <!-- Update action -->
+        <h2> Want to update your character?</h2>
+        <div>
+          <form>
+            <h3>Name:</h3>
+            <input type = "text" v-model="character.name" />
+            <br>
+            <h3>Level:</h3>
+            <label for="character_level_edit">Your character level:</label>
+            <select id = "character_level_edit" v-model="character.level">
+              <option value = "1">1</option>
+            </select> 
+            <br>
+            <h3>Class:</h3>
+            <label for="character_class_edit">Pick a class:</label>
+            <select id = "character_class_edit" v-model="character.character_class_id">
+              <option value = "1">Sorcerer</option>
+              <option value = "2">Warlock</option>
+              <option value = "3">Wizard</option>
+            </select>  
+            <br>
+            <h3>Specialize in something new?:</h3>
+            <label for="speciality_edit">Pick a speciality:</label>
+            <select id = "speciality_edit" v-model="character.speciality">
+              <option value = "nuker">Nuker. Because if there are no explosions are you doing magic?</option>
+              <option value = "utility">Utility. Always useful, always practical.</option>
+              <option value = "crowd control">Crowd control. Let other do the damage, you control the field.</option>
+              <option value = "the face">The Face. Who needs to fight? You get your way by just talking.</option>
+              <option value = "none">None. Do what you want, you crazy diamond.</option>
+            </select>
+
+            <br>
+            <h3>Learn a new spell!:</h3>
+            <label for="spell_edit">Next spell?:</label>
+            <select id = "spell_edit" v-model="character.new_spell_id">
+              <option value = "1">Eldritch Blast</option>
+              <option value = "2">Fire Bolt</option>
+              <option value = "3">Friends</option>
+              <option value = "4">Gust</option>
+              <option value = "5">Mage Hand</option>
+              <option value = "6">Message</option>
+              <option value = "7">Mold Earth</option>
+              <option value = "8">Toll the Death</option>
+              <option value = "9">Charm Person</option>
+              <option value = "10">Comprehend Language</option>
+              <option value = "11">Sleep</option>
+              <option value = "12">Witch Bolt</option>
+
+            </select>
+            <br>
+            <button v-on:click="updateCharacter(character)">Update Character</button>
+            <!-- Delete Character -->
+            <br>
+            <button v-on:click="destroyCharacter(character)">Delete Character?</button>
+          </form>
+        </div>
       </div >
-      <!-- Update action -->
-    <h2> Want to update your character?</h2>
-    <div>
-      <form>
-        <h3>Name:</h3>
-        <input type = "text" v-model="character.name" />
-        <br>
-        <h3>Level:</h3>
-        <label for="character_level_edit">Your character level:</label>
-        <select id = "character_level_edit" v-model="character.level">
-          <option value = "1">1</option>
-        </select> 
-        <br>
-        <h3>Class:</h3>
-        <label for="character_class_edit">Pick a class:</label>
-        <select id = "character_class_edit" v-model="character.character_class_id">
-          <option value = "1">Sorcerer</option>
-          <option value = "2">Warlock</option>
-          <option value = "3">Wizard</option>
-        </select>  
-        <br>
-        <h3>Specialize in something new?:</h3>
-        <label for="speciality_edit">Pick a speciality:</label>
-        <select id = "speciality_edit" v-model="character.speciality">
-          <option value = "nuker">Nuker. Because if there are no explosions are you doing magic?</option>
-          <option value = "utility">Utility. Always useful, always practical.</option>
-          <option value = "crowd control">Crowd control. Let other do the damage, you control the field.</option>
-          <option value = "the face">The Face. Who needs to fight? You get your way by just talking.</option>
-          <option value = "none">None. Do what you want, you crazy diamond.</option>
-        </select>
 
-        <br>
-        <h3>Learn a new spell!:</h3>
-        <label for="spell_edit">Next spell?:</label>
-        <select id = "spell_edit" v-model="character.new_spell_id">
-          <option value = "1">Eldritch Blast</option>
-          <option value = "2">Fire Bolt</option>
-          <option value = "3">Friends</option>
-          <option value = "4">Gust</option>
-          <option value = "5">Mage Hand</option>
-          <option value = "6">Message</option>
-          <option value = "7">Mold Earth</option>
-          <option value = "8">Toll the Death</option>
-          <option value = "9">Charm Person</option>
-          <option value = "10">Comprehend Language</option>
-          <option value = "11">Sleep</option>
-          <option value = "12">Witch Bolt</option>
-
-        </select>
-        <br>
-        <button v-on:click="updateCharacter(character)">Update Character</button>
-      </form>
-    </div>
-    <!-- Delete Character -->
-    <button v-on:click="destroyCharacter(character)">Delete Character?</button>
       <br>
       <br>
+      </article>
     </div>
-  </article>
   </div>
 </template>
 
