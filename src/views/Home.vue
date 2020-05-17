@@ -2,6 +2,7 @@
 
 <template>
   <div class="home">
+    
     <!-- Create Action -->
     <div>
       <article class="container box style3">
@@ -71,9 +72,10 @@
 
       <h4>Chosen Speciality: {{character.speciality}} </h4>
       <!-- Show action -->
-      <button v-on:click="showCharacter(character)">More details!</button>
+      <!-- <button v-on:click="showCharacter(character)">More details!</button> -->
+      <router-link v-bind:to="`/characters/${character.id}`">More details</router-link>
       <div v-if="currentCharacter === character">
-        <h3>Level: {{ character.level }}</h3>
+        <h3>Level: {{character.level}}</h3>
         <h3>Player: {{character.user}}</h3>
         <p>Nuking score: {{character.nuke_score}}</p>
         <p>Control score: {{character.cc_score}}</p>
