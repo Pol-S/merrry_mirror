@@ -67,21 +67,29 @@
       <article class="container box style3">
       <h2>Name: {{ character.name }}</h2>
       <h3>Class: {{ character.character_class}}</h3>
-      <h3>Level: {{ character.level }}</h3>
+
       <h4>Chosen Speciality: {{character.speciality}} </h4>
       <!-- Show action -->
-      <button v-on:click="showCharacter(character)">More details and full spell book</button>
+      <button v-on:click="showCharacter(character)">More details!</button>
       <div v-if="currentCharacter === character">
-        <p>Player: {{character.user}}</p>
-        Spell list: 
+        <h3>Level: {{ character.level }}</h3>
+        <h3>Player: {{character.user}}</h3>
+        <h3> Spell list:</h3> 
+        <br>
         <div v-for="spell in character.spells">
-          <p>{{spell.spell}}</p>
-          <p>{{spell.description}}</p>
+          <hr>
+          <header>
+            <br>
+            <p>Spell: {{spell.spell}}</p>
+            <p>Descripton: {{spell.description}}</p>
+            <p><button v-on:click="destroySpell(character, spell)">Delete spell?</button></p>
+          </header>
+          <hr>
         </div>
-        <p>How good at nuking? {{character.nuke_score}} out of 5.</p>
-        <p>How good at control? {{character.cc_score}} out of 5.</p>
-        <p>How good at general utility? {{character.utility_score}} out of 5.</p>
-        <p>How good at social magic? {{character.face_score}} out of 5.</p>
+        <p>How good at nuking? {{character.nuke_score}}</p>
+        <p>How good at control? {{character.cc_score}}</p>
+        <p>How good at general utility? {{character.utility_score}}</p>
+        <p>How good at social magic? {{character.face_score}}</p>
               <!-- Update action -->
         <h2> Want to update your character?</h2>
         <div>
@@ -158,6 +166,7 @@ export default {
     return {
       characters: [],
       currentCharacter: {},
+      currentSpell: {},
       newCharacterName: "",
       newCharacterLevel: "",
       newCharacterClass: "",
@@ -215,6 +224,12 @@ export default {
       axios.delete("/api/characters/" + character.id).then(response => {
         var index = this.characters.indexOf(character);
         this.characters.splice(index, 1);
+      });
+    },
+
+    destroySpell: function(character, spell) {
+      axios.delete("/api/characters/" + character.id + "/" + spell.id).then(response => {
+        this.currentCharacter = {};
       });
     },
   },
