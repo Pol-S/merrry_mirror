@@ -35,17 +35,18 @@
         </select>
 
         <br>
-        <h3>Pick a starter spell:</h3>
+        <h3>Pick a starter spell ({{validSpells.length}} available):</h3>
         <label for="spell">Your first cantrip?:</label>
         <select id = "spell" v-model="newCharacterSpell">
-          <option value = "1">Eldritch Blast</option>
+          <option v-for="spell in validSpells" v-bind:value="spell.id">{{spell.name}}</option>
+          <!-- <option value = "1">Eldritch Blast</option>
           <option value = "2">Fire Bolt</option>
           <option value = "3">Friends</option>
           <option value = "4">Gust</option>
           <option value = "5">Mage Hand</option>
           <option value = "6">Message</option>
           <option value = "7">Mold Earth</option>
-          <option value = "8">Toll the Death</option>
+          <option value = "8">Toll the Death</option> -->
 
         </select>
         <br>
@@ -74,6 +75,10 @@
       <div v-if="currentCharacter === character">
         <h3>Level: {{ character.level }}</h3>
         <h3>Player: {{character.user}}</h3>
+        <p>Nuking score: {{character.nuke_score}}</p>
+        <p>Control score: {{character.cc_score}}</p>
+        <p>Utility score: {{character.utility_score}}</p>
+        <p>Social magic score: {{character.face_score}}</p>
         <h3> Spell list:</h3> 
         <br>
         <div v-for="spell in character.spells">
@@ -86,10 +91,7 @@
           </header>
           <hr>
         </div>
-        <p>How good at nuking? {{character.nuke_score}}</p>
-        <p>How good at control? {{character.cc_score}}</p>
-        <p>How good at general utility? {{character.utility_score}}</p>
-        <p>How good at social magic? {{character.face_score}}</p>
+
               <!-- Update action -->
         <h2> Want to update your character?</h2>
         <div>
@@ -132,7 +134,7 @@
               <option value = "5">Mage Hand</option>
               <option value = "6">Message</option>
               <option value = "7">Mold Earth</option>
-              <option value = "8">Toll the Death</option>
+              <option value = "8">Toll the Dead</option>
               <option value = "9">Charm Person</option>
               <option value = "10">Comprehend Language</option>
               <option value = "11">Sleep</option>
@@ -165,6 +167,7 @@ export default {
   data: function() {
     return {
       characters: [],
+      spells: [],
       currentCharacter: {},
       currentSpell: {},
       newCharacterName: "",
@@ -178,6 +181,11 @@ export default {
   created: function() {
     axios.get("/api/characters").then(response => {
       this.characters = response.data;
+    });
+
+    axios.get("/api/spells").then(response => {
+      console.log(response);
+      this.spells = response.data;
     });
   },
   methods: {
@@ -216,6 +224,7 @@ export default {
         new_spell_id: parseInt(character.new_spell_id),
       };
       axios.patch("/api/characters/" + character.id, params).then(response => {
+        console.log = "Updating character.";
         this.currentCharacter = {};
       });
     },
@@ -229,8 +238,17 @@ export default {
 
     destroySpell: function(character, spell) {
       axios.delete("/api/characters/" + character.id + "/" + spell.id).then(response => {
-        this.currentCharacter = {};
+        console.log = "Spell deleted, back to the character profiles";
+        // Ask for help on this
+        // this.currentCharacter = response.data;
       });
+    },
+  },
+  computed: {
+    validSpells: function() {
+      return this.spells.filter(spell =>
+        spell.character_classes.map(x => x.id).includes(parseInt(this.newCharacterClass))
+      );
     },
   },
 };
