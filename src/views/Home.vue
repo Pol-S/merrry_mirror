@@ -19,9 +19,9 @@
         <h3>Class:</h3>
         <label for="classList">Pick a class:</label>
         <select id = "newCharacterClass" v-model="newCharacterClass">
-          <option value = "1">Sorcerer</option>
-          <option value = "2">Warlock</option>
-          <option value = "3">Wizard</option>
+          <option value = "1">Sorcerer: For whatever reason, you are doing magic instinctually and naturally.</option>
+          <option value = "2">Warlock: You have magic because you made a deal with...something...Let's hope it's benevolent.</option>
+          <option value = "3">Wizard: Study and hard work has lead you to magic.</option>
         </select>  
         <br>
         <h3>Speciality:</h3>
@@ -106,9 +106,9 @@
             <h3>Class:</h3>
             <label for="character_class_edit">Pick a class:</label>
             <select id = "character_class_edit" v-model="character.character_class_id">
-              <option value = "1">Sorcerer</option>
-              <option value = "2">Warlock</option>
-              <option value = "3">Wizard</option>
+              <option value = "1">Sorcerer: For whatever reason, you are doing magic instinctually and naturally.</option>
+              <option value = "2">Warlock: You have magic because you made a deal with...something...Let's hope it's benevolent.</option>
+              <option value = "3">Wizard: Study and hard work has lead you to magic.</option>
             </select>  
             <br>
             <h3>Specialize in something new?:</h3>
