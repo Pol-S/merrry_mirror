@@ -56,21 +56,9 @@
 
         <br>
         <h3>Learn a new spell!:</h3>
-        <label for="spell_edit">Next spell?:</label>
+        <label for="spell_edit">Next spell? ({{validSpells.length}} available):</label>
         <select id = "spell_edit" v-model="character.new_spell_id">
-          <option value = "1">Eldritch Blast</option>
-          <option value = "2">Fire Bolt</option>
-          <option value = "3">Friends</option>
-          <option value = "4">Gust</option>
-          <option value = "5">Mage Hand</option>
-          <option value = "6">Message</option>
-          <option value = "7">Mold Earth</option>
-          <option value = "8">Toll the Dead</option>
-          <option value = "9">Charm Person</option>
-          <option value = "10">Comprehend Language</option>
-          <option value = "11">Sleep</option>
-          <option value = "12">Witch Bolt</option>
-
+          <option v-for="spell in validSpells" v-bind:value="spell.id">{{spell.name}}</option>
         </select>
         <br>
         <button v-on:click="updateCharacter(character)">Update Character</button>
@@ -78,6 +66,7 @@
         <br>
         <button v-on:click="destroyCharacter(character)">Delete Character?</button>
       </form>
+    </div>
     <router-link to="/">Back to all characters</router-link>
     </article>
   </div>
@@ -89,15 +78,54 @@ export default {
   data: function() {
     return {
       character: {},
+      spells: [],
       message: "Test show page",
     };
   },
   created: function() {
     axios.get("/api/characters/" + this.$route.params.id).then(response => {
-      console.log("characters show", response);
       this.character = response.data;
     });
+    axios.get("/api/spells").then(response => {
+      this.spells = response.data;
+    });
   },
-  methods: {},
+  methods: {
+    updateCharacter: function(character) {
+      var params = {
+        name: character.name,
+        level: parseInt(character.level),
+        character_class_id: parseInt(character.character_class_id),
+        speciality: character.speciality,
+        new_spell_id: parseInt(character.new_spell_id),
+      };
+      axios.patch("/api/characters/" + character.id, params).then(response => {
+        console.log("Updating character");
+        this.$router.push("/characters/" + character.id);
+      });
+    },
+
+    destroyCharacter: function(character) {
+      axios.delete("/api/characters/" + character.id).then(response => {
+        console.log("character destroy", response);
+        this.$router.push("..");
+      });
+    },
+
+    destroySpell: function(character, spell) {
+      axios.delete("/api/characters/" + character.id + "/" + spell.id).then(response => {
+        console.log("Spell deleted", response);
+        this.$router.push("/characters/" + character.id);
+      });
+    },
+  },
+
+  computed: {
+    validSpells: function() {
+      return this.spells.filter(spell =>
+        spell.character_classes.map(x => x.id).includes(parseInt(this.character.character_class_id))
+      );
+    },
+  },
 };
 </script>
