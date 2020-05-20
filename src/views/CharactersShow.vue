@@ -26,7 +26,7 @@
           <!-- Update action -->
     <h2> Want to update your character?</h2>
     <div>
-      <form>
+      <form onsubmit="event.preventDefault();">
         <h3>Name:</h3>
         <input type = "text" v-model="character.name" />
         <br>
@@ -101,21 +101,24 @@ export default {
       };
       axios.patch("/api/characters/" + character.id, params).then(response => {
         console.log("Updating character");
-        this.$router.push("/characters/" + character.id);
+        // this.$router.push("/characters/" + character.id);
+        location.reload();
       });
     },
 
     destroyCharacter: function(character) {
       axios.delete("/api/characters/" + character.id).then(response => {
         console.log("character destroy", response);
-        this.$router.push("..");
+        this.$router.push("/").catch(err => {});
       });
     },
 
     destroySpell: function(character, spell) {
       axios.delete("/api/characters/" + character.id + "/" + spell.id).then(response => {
         console.log("Spell deleted", response);
-        this.$router.push("/characters/" + character.id);
+
+        // this.$router.push("/characters/" + character.id).catch(err => {});
+        location.reload();
       });
     },
   },
