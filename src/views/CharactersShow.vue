@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="characters-show">
     <article class="container box style3">
       <h2>Name: {{ character.name }}</h2>
       <h3>Class: {{ character.character_class }}</h3>
@@ -24,7 +24,6 @@
           <p>Descripton: {{ spell.description }}</p>
           <p><button v-on:click="destroySpell(character, spell)">Delete spell?</button></p>
         </header>
-        <hr />
       </div>
 
       <!-- Update action -->
@@ -71,9 +70,9 @@
           <!-- Delete Character -->
           <br />
           <button v-on:click="destroyCharacter(character)">Delete Character?</button>
+          <router-link to="/">Back to all characters</router-link>
         </form>
       </div>
-      <router-link to="/">Back to all characters</router-link>
     </article>
   </div>
 </template>
