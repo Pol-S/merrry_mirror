@@ -30,6 +30,12 @@
       <h2>Want to update your character?</h2>
       <div>
         <form onsubmit="event.preventDefault();">
+          <h3>Learn a new spell!:</h3>
+          <label for="spell_edit">Next spell? ({{ validSpells.length }} available):</label>
+          <select id="spell_edit" v-model="character.new_spell_id">
+            <option v-for="spell in validSpells" v-bind:value="spell.id">{{ spell.name }} - {{ spell.description}}</option>
+          </select>
+          <br />
           <h3>Name:</h3>
           <input type="text" v-model="character.name" />
           <br />
@@ -60,15 +66,10 @@
           </select>
 
           <br />
-          <h3>Learn a new spell!:</h3>
-          <label for="spell_edit">Next spell? ({{ validSpells.length }} available):</label>
-          <select id="spell_edit" v-model="character.new_spell_id">
-            <option v-for="spell in validSpells" v-bind:value="spell.id">{{ spell.name }}</option>
-          </select>
-          <br />
+
           <button v-on:click="updateCharacter(character)">Update Character</button>
           <!-- Delete Character -->
-          <br />
+          
           <button v-on:click="destroyCharacter(character)">Delete Character?</button>
         </form>
       </div>

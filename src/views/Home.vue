@@ -36,9 +36,9 @@
 
           <br />
           <h3>Pick a starter spell ({{ validSpells.length }} available):</h3>
-          <label for="spell">Your first cantrip?:</label>
+          <label for="spell">Your first spell?:</label>
           <select id="spell" v-model="newCharacterSpell">
-            <option v-for="spell in validSpells" v-bind:value="spell.id">{{ spell.name }}</option>
+            <option v-for="spell in validSpells" v-bind:value="spell.id">{{ spell.name }} - {{ spell.description}}</option>
           </select>
           <br />
           <button v-on:click="createCharacter()">Create Character</button>
@@ -56,7 +56,7 @@
     <br />
     <section id="banner">
       <header>
-        <h1>All characters</h1>
+        <h2>You Cast of Characters</h2>
       </header>
     </section>
 
