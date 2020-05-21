@@ -12,7 +12,7 @@
     <router-view />
     <section id="footer">
       <!-- <footer> -->
-      <router-link to="/" class="after">Back to all characters</router-link>
+      <router-link to="/" class="a">Back to all characters</router-link>
       <!-- </footer> -->
     </section>
   </div>
