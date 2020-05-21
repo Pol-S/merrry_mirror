@@ -70,7 +70,6 @@
           <!-- Delete Character -->
           <br />
           <button v-on:click="destroyCharacter(character)">Delete Character?</button>
-          <router-link to="/">Back to all characters</router-link>
         </form>
       </div>
     </article>

@@ -116,6 +116,7 @@ export default {
         user_id: 3,
       };
       axios.post("/api/characters", params).then(response => {
+        this.createdCharacter = response.data;
         this.characters.push(response.data);
         this.newCharacterName = "";
         this.newCharacterLevel = "";
@@ -123,7 +124,7 @@ export default {
         this.newCharacterSpeciality = "";
         this.createCharacter = response.data;
         console.log(response);
-        // this.$router.push("/characters/" + this.createdCharacter.id);
+        this.$router.push("/characters/" + this.createdCharacter.id);
       });
     },
 
