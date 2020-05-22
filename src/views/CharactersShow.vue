@@ -45,12 +45,13 @@
             <option value="1">1</option>
           </select>
           <br />
-          <h3>Change Your Class? (You will have to pick your spells again):</h3>
+          <h3>Change Your Class?:</h3>
+          <p>(Note: You will have to pick your spells again)</p>
           <label for="character_class_edit">Pick a class:</label>
           <select id="character_class_edit" v-model="character.character_class_id">
             <option value="1">Sorcerer: For whatever reason, you are doing magic instinctually and naturally.</option>
             <option value="2">
-              Warlock: You have magic because you made a deal with...something...Let's hope it's benevolent.
+              Warlock: You have magic because you made a deal with...something...
             </option>
             <option value="3">Wizard: Study and hard work has lead you to magic.</option>
           </select>

@@ -19,7 +19,7 @@
           <select id="newCharacterClass" v-model="newCharacterClass">
             <option value="1">Sorcerer: For whatever reason, you are doing magic instinctually and naturally.</option>
             <option value="2">
-              Warlock: You have magic because you made a deal with...something...Let's hope it's benevolent.
+              Warlock: You have magic because you made a deal with...something...
             </option>
             <option value="3">Wizard: Study and hard work has lead you to magic.</option>
           </select>
